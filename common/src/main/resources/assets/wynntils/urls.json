@@ -1,0 +1,336 @@
+[
+  {
+    "version": 13
+  },
+  {
+    "id": "apiAthenaAuthPublicKey",
+    "url": "https://athena.wynntils.com/auth/getPublicKey"
+  },
+  {
+    "arguments": [
+      "key",
+      "username",
+      "version"
+    ],
+    "id": "apiAthenaAuthResponse",
+    "method": "post",
+    "url": "https://athena.wynntils.com/auth/responseEncryption"
+  },
+  {
+    "arguments": [
+      "trace"
+    ],
+    "id": "apiAthenaTelemetryCrash",
+    "method": "post",
+    "url": "https://athena.wynntils.com/crash/report"
+  },
+  {
+    "arguments": [
+      "old_version",
+      "new_version"
+    ],
+    "id": "apiAthenaUpdateChangelog",
+    "url": "https://athena.wynntils.com/version/changelog/%{old_version}/%{new_version}"
+  },
+  {
+    "arguments": [
+      "old_version",
+      "new_version"
+    ],
+    "id": "apiAthenaUpdateChangelogV2",
+    "url": "https://athena.wynntils.com/v2/version/changelog/%{old_version}/%{new_version}"
+  },
+  {
+    "arguments": [
+      "stream"
+    ],
+    "id": "apiAthenaUpdateCheck",
+    "url": "https://athena.wynntils.com/version/latest/%{stream}"
+  },
+  {
+    "arguments": [
+      "uuid"
+    ],
+    "id": "apiAthenaUserInfo",
+    "method": "post",
+    "url": "https://athena.wynntils.com/user/getInfo"
+  },
+  {
+    "arguments": [
+      "lang",
+      "text"
+    ],
+    "id": "apiGoogleTranslation",
+    "url": "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=%{lang}&dt=t&q=%{text}"
+  },
+  {
+    "arguments": [
+      "name"
+    ],
+    "encoding": "wiki",
+    "id": "apiWikiDiscoveryQuery",
+    "url": "https://wynncraft.wiki.gg/api.php?action=parse&format=json&prop=wikitext&section=0&page=%{name}"
+  },
+  {
+    "arguments": [
+      "name"
+    ],
+    "encoding": "cargo",
+    "id": "apiWikiQuestPageQuery",
+    "url": "https://wynncraft.wiki.gg/index.php?title=Special:CargoExport&tables=Quests&&fields=Quests._pageTitle&where=Quests.name+%3D+%{name}&order+by=&limit=2000&format=json"
+  },
+  {
+    "id": "dataAthenaGuildList",
+    "url": "https://athena.wynntils.com/cache/get/guildList"
+  },
+  {
+    "id": "dataAthenaLeaderboard",
+    "url": "https://athena.wynntils.com/cache/get/leaderboard"
+  },
+  {
+    "id": "dataAthenaServerList",
+    "url": "https://athena.wynntils.com/cache/get/serverList"
+  },
+  {
+    "id": "dataStaticAbilities",
+    "md5": "fd5e9a5b76988ae00265695ee90d622a",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Reference/abilities.json"
+  },
+  {
+    "id": "dataStaticAspects",
+    "md5": "de9814771eaf0b8d4730c1a8dbad363c",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Reference/aspects.json"
+  },
+  {
+    "id": "dataStaticCaveInfo",
+    "md5": "e3a64e7b576951b7260f9c4ed4a5db01",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Reference/caves.json"
+  },
+  {
+    "id": "dataStaticCharms",
+    "md5": "e32f5ee4bb40b375eb2d4b7952599f64",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Reference/charms.json"
+  },
+  {
+    "id": "dataStaticCombatLocations",
+    "md5": "5217e28bf1e91686a2258418ed7f27c3",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Data-Storage/combat_locations.json"
+  },
+  {
+    "id": "dataStaticCombatMapFeatures",
+    "md5": "ae014dde3797591343e40170a9884d32",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Reference/combat_mapfeatures.json"
+  },
+  {
+    "id": "dataStaticDestinations",
+    "md5": "8021e388b6c8ec682d3323fd7d2672f6",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Data-Storage/destinations.json"
+  },
+  {
+    "id": "dataStaticGear",
+    "md5": "1397a75063efb9fa9affd1581561fa8c",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Reference/gear.json"
+  },
+  {
+    "id": "dataStaticGearAdvanced",
+    "md5": "7cc0f3d523b1423e11f5fcb7a508c2d9",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Reference/advanced_gear.json"
+  },
+  {
+    "id": "dataStaticHints",
+    "md5": "5497f7fb130f6ea87eb2b9890a2cc36a",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Data-Storage/hint_messages.json"
+  },
+  {
+    "id": "dataStaticIdentificationKeys",
+    "md5": "745366b87899dfa650e7a9a2b0d5f4d3",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Reference/id_keys.json"
+  },
+  {
+    "id": "dataStaticIngredientSkins",
+    "md5": "04c5e1ee6dcd78bc0939ec7b5a6d6dd0",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Data-Storage/ingredient_skins.json"
+  },
+  {
+    "id": "dataStaticIngredients",
+    "md5": "7fa529b75cb5ae4572c54a370678a54a",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Reference/ingredients.json"
+  },
+  {
+    "id": "dataStaticIngredientsAdvanced",
+    "md5": "f0244d7c5658d7093eb0650b0f29a657",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Reference/advanced_ingredients.json"
+  },
+  {
+    "id": "dataStaticItemObtain",
+    "md5": "20e9a265f5e2ed91b02d80623b3765bd",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Data-Storage/item_obtain.json"
+  },
+  {
+    "id": "dataStaticItemSets",
+    "md5": "071b40d5f63ec963742df664a14e072a",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Data-Storage/item_sets.json"
+  },
+  {
+    "id": "dataStaticLootrunTasksNamed",
+    "md5": "2e0080ebd9e8d06a1635bb2dedb652fe",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Data-Storage/lootrun_tasks_named.json"
+  },
+  {
+    "id": "dataStaticLootrunTasksNamedV2",
+    "md5": "b2b815085f9c1bd5b4db9b4a12078efa",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Data-Storage/lootrun_tasks_named_v2.json"
+  },
+  {
+    "id": "dataStaticMajorIds",
+    "md5": "38bb5299f66016271f5bf3a1f49ec0ae",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Data-Storage/major_ids.json"
+  },
+  {
+    "id": "dataStaticMaps",
+    "md5": "9af4cc0fed470aedc25be31f8fbf8b9b",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Reference/maps.json"
+  },
+  {
+    "id": "dataStaticMaterialConversion",
+    "md5": "a4ec63ebbd23003dc6627fed738f8c24",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Data-Storage/material_conversions.json"
+  },
+  {
+    "id": "dataStaticMaterials",
+    "md5": "f20e5615212f0e3a04611442531bc889",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Reference/materials.json"
+  },
+  {
+    "id": "dataStaticModelData",
+    "md5": "c2b17aee3f01135d7e7a6f6b64a61980",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Data-Storage/model_data.json"
+  },
+  {
+    "id": "dataStaticPlaceMapFeatures",
+    "md5": "fba1ef5092add312b243e5dde3ab9004",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Reference/place_mapfeatures.json"
+  },
+  {
+    "id": "dataStaticPlaces",
+    "md5": "c1907ba6d7c8851be2c6cf3062d17de5",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Reference/places.json"
+  },
+  {
+    "id": "dataStaticSeaskipperDestinations",
+    "md5": "9316de06eb80ef9a26f8b604e9ac13bd",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Data-Storage/seaskipper_destinations.json"
+  },
+  {
+    "id": "dataStaticServiceMapFeatures",
+    "md5": "f8da52e87a8d35843a57bc8fa2c4a260",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Data-Storage/service_mapfeatures.json"
+  },
+  {
+    "id": "dataStaticServices",
+    "md5": "183e76811f0b598649753c870e158444",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Reference/services.json"
+  },
+  {
+    "id": "dataStaticServicesCrowdsourced",
+    "md5": "d05fc4799aebfb5adae372cc3cebedfe",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Data-Storage/services_crowdsourced.json"
+  },
+  {
+    "id": "dataStaticShinyStats",
+    "md5": "43227d9e0f0327fd68e852feb2a5a728",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Data-Storage/shiny_stats.json"
+  },
+  {
+    "id": "dataStaticSplashes",
+    "md5": "262f3c73093a1f0979beedb8b25e9420",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Data-Storage/splashes.json"
+  },
+  {
+    "id": "dataStaticTomes",
+    "md5": "5cd87e3ead6b0152d321e81dc1d3326b",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Reference/tomes.json"
+  },
+  {
+    "id": "dataStaticTools",
+    "md5": "d22edcddf11403142c147ef75e952c76",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Reference/tools.json"
+  },
+  {
+    "id": "dataStaticUrls",
+    "url": "https://raw.githubusercontent.com/Wynntils/Static-Storage/main/Data-Storage/urls.json"
+  },
+  {
+    "arguments": [
+      "name"
+    ],
+    "id": "dataWynncraftGuild",
+    "url": "https://api.wynncraft.com/v3/guild/%{name}"
+  },
+  {
+    "arguments": [
+      "type"
+    ],
+    "id": "dataWynncraftLeaderboard",
+    "url": "https://api.wynncraft.com/v3/leaderboards/%{type}?resultLimit=9"
+  },
+  {
+    "arguments": [
+      "username"
+    ],
+    "id": "dataWynncraftPlayer",
+    "url": "https://api.wynncraft.com/v3/player/%{username}"
+  },
+  {
+    "id": "dataWynncraftTerritoryListV3",
+    "url": "https://api.wynncraft.com/v3/guild/list/territory"
+  },
+  {
+    "arguments": [
+      "title"
+    ],
+    "encoding": "wiki",
+    "id": "linkWikiLookup",
+    "url": "https://wynncraft.wiki.gg/wiki/%{title}"
+  },
+  {
+    "arguments": [
+      "itemname"
+    ],
+    "id": "linkWynncraftItemLookup",
+    "url": "https://wynncraft.com/item/%{itemname}"
+  },
+  {
+    "arguments": [
+      "username"
+    ],
+    "id": "linkWynncraftPlayerStats",
+    "url": "https://wynncraft.com/stats/player/%{username}"
+  },
+  {
+    "arguments": [
+      "itemname"
+    ],
+    "id": "linkWynndataItemLookup",
+    "url": "https://data.wynntils.com/i/%{itemname}"
+  },
+  {
+    "id": "linkWynntilsDiscordInvite",
+    "url": "https://discord.gg/SZuNem8"
+  },
+  {
+    "id": "linkWynntilsPatreon",
+    "url": "https://www.patreon.com/Wynntils"
+  },
+  {
+    "arguments": [
+      "token"
+    ],
+    "id": "linkWynntilsRegisterAccount",
+    "url": "https://account.wynntils.com/register.php?token=%{token}"
+  },
+  {
+    "id": "linkWynntilsStatus",
+    "url": "https://status.wynntils.com/"
+  }
+]
