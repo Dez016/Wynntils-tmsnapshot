@@ -4,12 +4,22 @@
  */
 package com.wynntils.models.trademarket;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.slf4j.Logger;
+
 import com.wynntils.core.WynntilsMod;
 import com.wynntils.core.components.Handlers;
 import com.wynntils.core.components.Model;
 import com.wynntils.core.components.Models;
 import com.wynntils.core.persisted.Persisted;
 import com.wynntils.core.persisted.storage.Storage;
+import com.wynntils.core.text.PartStyle;
 import com.wynntils.core.text.StyledText;
 import com.wynntils.handlers.chat.event.ChatMessageReceivedEvent;
 import com.wynntils.mc.event.ChatSentEvent;
@@ -34,12 +44,7 @@ import com.wynntils.screens.trademarket.TradeMarketSearchResultHolder;
 import com.wynntils.utils.mc.LoreUtils;
 import com.wynntils.utils.mc.McUtils;
 import com.wynntils.utils.mc.StyledTextUtils;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.TreeMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -47,6 +52,9 @@ import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 
 public final class TradeMarketModel extends Model {
+
+    private static final Logger LOGGER = WynntilsMod.getLogger();
+
     private static final Pattern[] ITEM_NAME_PATTERNS = {
         // Item on the create buy order menu or create sell offer menu
         Pattern.compile("^§6(?:Buying|Selling) [^ ]+ (.+?)(?:§6)? for .+ Each$"),
@@ -83,6 +91,14 @@ public final class TradeMarketModel extends Model {
     // Test in TradeMarketModel_PRICE_PATTERN
     private static final Pattern PRICE_PATTERN = Pattern.compile(
             "§[67] - (?:§f(?<amount>[\\d,]+) §7x )?§(?:(?:(?:c✖|a✔) §f)|f§m|f)(?<price>[\\d,]+)§7(?:§m)?²(?:§b ✮ (?<silverbullPrice>[\\d,]+)§3²)?(?: .+)?");
+
+    //newpattern wheeeewe
+    String PRICE_ICON = "\uDB00\uDC06";
+    Pattern PRICE_ICON_QTY_PRICE_PATTERN = Pattern.compile(
+        Pattern.quote("\uDB00\uDC06") + "\\s*([\\d,]+)\\s*x\\s*([\\d,]+)"
+    );
+    Pattern PRICE_AFTER_ICON_PATTERN = Pattern.compile(Pattern.quote(PRICE_ICON) + "\\s*([\\d,]+)");
+
 
     private static final Pattern SELL_ITEM_NAME_PATTERN = Pattern.compile("(.+)À");
     private static final String EMPTY_ITEM_SLOT = "Empty Item Slot";
@@ -217,32 +233,62 @@ public final class TradeMarketModel extends Model {
 
     public TradeMarketPriceInfo calculateItemPriceInfo(ItemStack itemStack) {
         List<StyledText> loreLines = LoreUtils.getLore(itemStack);
+        
+        // dumpLoreLines(loreLines); REMOVED FOR READABILITY
 
         StyledText priceLine = loreLines.get(TRADE_MARKET_PRICE_LINE);
 
-        if (priceLine == null || !priceLine.matches(PRICE_STR)) {
-            WynntilsMod.warn("Trade Market item had an unexpected price line: " + priceLine);
-            return TradeMarketPriceInfo.EMPTY;
-        }
+        // if (priceLine == null || !priceLine.matches(PRICE_STR)) {
+        //     WynntilsMod.warn("Trade Market item had an unexpected price line: " + priceLine);
+        //     return TradeMarketPriceInfo.EMPTY;
+        // }
 
         StyledText priceValueLine = loreLines.get(TRADE_MARKET_PRICE_LINE + 1);
 
-        Matcher matcher = priceValueLine.getMatcher(PRICE_PATTERN);
-        if (!matcher.matches()) {
-            WynntilsMod.warn("Trade Market item had an unexpected price value line: " + priceValueLine);
-            return TradeMarketPriceInfo.EMPTY;
+        // Matcher matcher = priceValueLine.getMatcher(PRICE_PATTERN);
+        // if (!matcher.matches()) {
+        //     WynntilsMod.warn("Trade Market item had an unexpected price value line: " + priceValueLine);
+        //     return TradeMarketPriceInfo.EMPTY;
+        // }
+        int price = 0;
+        int amount = 0;
+        String rawPriceLine = priceValueLine.getString(PartStyle.StyleType.NONE);
+
+        Matcher pAndQMatcher = PRICE_ICON_QTY_PRICE_PATTERN.matcher(rawPriceLine);
+
+        if (pAndQMatcher.find()) {
+            amount = Integer.parseInt(pAndQMatcher.group(1));
+            price = Integer.parseInt(pAndQMatcher.group(2).replace(",", ""));
+        }       
+
+        else {
+            Matcher matcher = PRICE_AFTER_ICON_PATTERN.matcher(rawPriceLine);
+                
+            if (matcher.find()) {
+                String numberStr = matcher.group(1);
+                try {
+                    price = Integer.parseInt(numberStr.replace(",", ""));
+                    amount = 1;
+                } catch (NumberFormatException e) {
+                    LOGGER.warn("Failed to parse price number from '{}'", numberStr, e);
+                }
+            } else {
+                LOGGER.warn("No price match found in string: '{}'", escapeUnicode(priceValueLine.getString(PartStyle.StyleType.NONE)));
+            }
         }
 
-        int price = Integer.parseInt(matcher.group("price").replace(",", ""));
+        // int price = Integer.parseInt(matcher.group("price").replace(",", ""));
 
-        String silverbullPriceStr = matcher.group("silverbullPrice");
-        int silverbullPrice =
-                silverbullPriceStr == null ? price : Integer.parseInt(silverbullPriceStr.replace(",", ""));
+        // String silverbullPriceStr = matcher.group("silverbullPrice");
+        // int silverbullPrice =
+        //         silverbullPriceStr == null ? price : Integer.parseInt(silverbullPriceStr.replace(",", ""));
 
-        String amountStr = matcher.group("amount");
-        int amount = amountStr == null ? 1 : Integer.parseInt(amountStr.replace(",", ""));
+        // String amountStr = matcher.group("amount");
+        // int amount = amountStr == null ? 1 : Integer.parseInt(amountStr.replace(",", ""));
 
-        return new TradeMarketPriceInfo(price, silverbullPrice, amount);
+        // LOGGER.info("PRICE PULLED: " + price + " AMOUNT PULLED: " + amount);
+
+        return new TradeMarketPriceInfo(price, 0, amount);
     }
 
     /**
@@ -264,6 +310,41 @@ public final class TradeMarketModel extends Model {
 
         return -1;
     }
+
+    private static void dumpLoreLines(List<StyledText> loreLines) {
+        LOGGER.info("----- Lore Dump Start -----");
+        for (int i = 0; i < loreLines.size(); i++) {
+            StyledText rawLine = loreLines.get(i);
+
+            StyledText line = StyledTextUtils.unwrap(rawLine); // Strip soft-wraps if present
+
+            String legacy = line.getString(); // Includes § formatting codes
+            String plain = line.getStringWithoutFormatting(); // Just raw characters
+            String debug = line.toString(); // Includes hover/click/event metadata
+
+            LOGGER.info("Line " + i + ":");
+            LOGGER.info("RawLin.getString: " + rawLine.getString(PartStyle.StyleType.NONE));
+            LOGGER.info("  §fRaw   : \"" + escapeUnicode(rawLine.getString(PartStyle.StyleType.NONE)) + "\"");
+            LOGGER.info("  §fLegacy: \"" + escapeUnicode(legacy) + "\"");
+            LOGGER.info("  §fPlain : \"" + escapeUnicode(plain) + "\"");
+            LOGGER.info("  §fDebug : " + debug);
+        }
+        LOGGER.info("----- Lore Dump End -----");
+    }
+
+    private static String escapeUnicode(String input) {
+        StringBuilder sb = new StringBuilder();
+        for (char c : input.toCharArray()) {
+            if (Character.isISOControl(c) || Character.isSurrogate(c) || c == '\uDB00' || c == '\uDAFF') {
+                sb.append(String.format("\\u%04X", (int) c));
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
+
 
     /**
      * @return The TM's server-side price check item information.

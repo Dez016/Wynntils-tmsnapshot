@@ -185,6 +185,9 @@ import net.minecraft.network.chat.MutableComponent;
 import net.neoforged.bus.api.Event;
 import net.neoforged.bus.api.SubscribeEvent;
 
+//mine
+import com.wynntils.features.inventory.TradeMarketRecordingFeature;
+
 /** Loads {@link Feature}s */
 public final class FeatureManager extends Manager {
     private static final Map<Feature, FeatureState> FEATURES = new LinkedHashMap<>();
@@ -284,6 +287,8 @@ public final class FeatureManager extends Manager {
         registerFeature(new LootchestTextFeature());
         registerFeature(new PersonalStorageUtilitiesFeature());
         registerFeature(new UnidentifiedItemIconFeature());
+        registerFeature(new TradeMarketRecordingFeature());
+
         // endregion
 
         // region map
@@ -357,6 +362,7 @@ public final class FeatureManager extends Manager {
         registerFeature(new TradeMarketPriceConversionFeature());
         registerFeature(new TradeMarketPriceMatchFeature());
         registerFeature(new TradeMarketQuickSearchFeature());
+
         // endregion
 
         // region ui
