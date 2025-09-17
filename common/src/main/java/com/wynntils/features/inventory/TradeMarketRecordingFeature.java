@@ -102,7 +102,7 @@ public class TradeMarketRecordingFeature extends Feature{
     private void Log(String itemString, TradeMarketPriceInfo itemInfo) {
     Instant now = Instant.now();
     LocalDate date = now.atZone(ZoneId.systemDefault()).toLocalDate();
-    String fileName = "codes-" + date.format(DateTimeFormatter.ISO_LOCAL_DATE) + ".csv";
+    String fileName = "codes-" + date.format(DateTimeFormatter.ISO_LOCAL_DATE) + "-" + now + ".csv";
     Path path = Path.of("common\\run\\logs\\tmbot", fileName);
 
     try {
